@@ -17,12 +17,7 @@ VANTA.WAVES({
 
 // Scroll fade-in
 const faders = document.querySelectorAll(".fade-in");
-
-const appearOptions = {
-  threshold: 0.2,
-  rootMargin: "0px 0px -50px 0px"
-};
-
+const appearOptions = { threshold: 0.2, rootMargin: "0px 0px -50px 0px" };
 const appearOnScroll = new IntersectionObserver(function(entries, observer) {
   entries.forEach(entry => {
     if (!entry.isIntersecting) return;
@@ -30,7 +25,34 @@ const appearOnScroll = new IntersectionObserver(function(entries, observer) {
     observer.unobserve(entry.target);
   });
 }, appearOptions);
+faders.forEach(fader => appearOnScroll.observe(fader));
 
-faders.forEach(fader => {
-  appearOnScroll.observe(fader);
+// Carousel logic
+const track = document.querySelector(".carousel-track");
+const dots = document.querySelectorAll(".dots span");
+let currentSlide = 0;
+const totalSlides = dots.length;
+
+// Auto play
+setInterval(() => {
+  currentSlide = (currentSlide + 1) % totalSlides;
+  updateCarousel();
+}, 5000);
+
+// Dot click
+dots.forEach(dot => {
+  dot.addEventListener("click", () => {
+    currentSlide = parseInt(dot.dataset.index);
+    updateCarousel();
+  });
 });
+
+function updateCarousel() {
+  track.style.transform = `translateX(-${currentSlide * 100}%)`;
+  dots.forEach((dot, i) => {
+    dot.classList.toggle("active", i === currentSlide);
+  });
+}
+
+// Initialize first dot active
+updateCarousel();

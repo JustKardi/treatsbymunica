@@ -8,12 +8,10 @@
   transform: translateY(30px);
   transition: opacity 1s ease, transform 1s ease;
 }
-
 .fade-in.show {
   opacity: 1;
   transform: translateY(0);
 }
-
 
 body {
     margin: 0;
@@ -22,6 +20,9 @@ body {
     background-color: antiquewhite;
 }
 
+/* -----------------
+Landing
+------------------ */
 .landing {
     width: 100vw;
     height: 100vh;
@@ -30,9 +31,8 @@ body {
     justify-content: center;
     flex-direction: column;
     position: relative;
-    z-index: 1; /* Keep content above background animation */
+    z-index: 1;
 }
-
 .landing--title {
     font-family: "Satisfy", cursive;
     font-size: 7vw;
@@ -40,7 +40,6 @@ body {
     z-index: 2;
     position: relative;
 }
-
 .landing--image {
     width: 20vw;
     height: 20vw;
@@ -48,152 +47,191 @@ body {
     position: relative;
 }
 
+/* -----------------
+Rotation Carousel
+------------------ */
+.rotation {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.rotation-title {
+  text-align: center;
+  font-size: 3vw;
+  margin-bottom: 2vh;
+  color: var(--pink);
+  font-family: "Satisfy", cursive;
+}
+
+.carousel {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.slide {
+  flex: 0 0 100%; /* one full “page” per image */
+  display: flex;
+  justify-content: center;
+}
+
+.slide img {
+  width: 70vw;   /* smaller than full screen */
+  height: auto;
+  border-radius: 10px;
+}
+
+
+.carousel-track img {
+  flex: 0 0 auto;      /* prevents shrinking */
+  width: 30vw;        /* adjust how wide each image is */
+  height: auto;       /* keep them consistent */
+  object-fit: cover;   /* crops instead of stretching */
+  scroll-snap-align: start;
+  border-radius: 10px;
+}
+
+
+/* Dots */
+.dots {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+.dots span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.6);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.dots span.active {
+  background: #fff;
+}
+
+/* -----------------
+About Us
+------------------ */
 .about-us {
     width: 100vw;
     height: 100vh;
     display: flex;
 }
-
 .about-us--left {
     width: 50%;
     height: 100%;
     background-color: var(--pink);
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
 .about-us--right {
     width: 50%;
     height: 100%;
     background-color: antiquewhite;
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
 .about-us--left--title {
     font-family: "Satisfy", cursive;
     font-size: 7vw;
     color: antiquewhite;
 }
-
 .about-us--right--text {
-    font-family: "Poppins", sans-serif ;
+    font-family: "Poppins", sans-serif;
     color: var(--pink);
     width: 70%;
     text-align: center;
     font-size: 1.4vw;
 }
 
+/* -----------------
+Mission Statement
+------------------ */
 .mission-statement {
     width: 100vw;
     height: 100vh;
     display: flex;
 }
-
 .mission-statement--left {
     width: 50%;
     height: 100%;
     background-color: antiquewhite;
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
 .mission-statement--right {
     width: 50%;
     height: 100%;
     background-color: var(--pink);
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
 .mission-statement--left--text {
     font-family: "Satisfy", cursive;
     font-size: 7vw;
     color: var(--pink);
     text-align: center;
 }
-
 .mission-statement--right--title {
-    font-family: "Poppins", sans-serif ;
+    font-family: "Poppins", sans-serif;
     color: antiquewhite;
     width: 70%;
     text-align: center;
     font-size: 1.4vw;
 }
 
-/* ---------------------
-------------------------
+/* -----------------
 Mobile Responsiveness
-------------------------
---------------------- */
-
+------------------ */
 @media (max-width: 992px) and (min-width: 768px) {
-    .landing--title {
-        font-size: 13vw;
-    }
-    .landing--image {
-        width: 30vw;
-        height: 30vw;
-    }
-    .about-us--right--text {
-        font-size: 3vw;
-    }
-    .mission-statement--right--title {
-        font-size: 3vw;
+    .landing--title { font-size: 13vw; }
+    .landing--image { width: 30vw; height: 30vw; }
+    .about-us--right--text, .mission-statement--right--title { font-size: 3vw; }
+    .rotation-title { font-size: 6vw; }
+    .carousel-track img {
+        flex: 0 0 auto;      /* prevents shrinking */
+        width: 50vw;        /* adjust how wide each image is */
+        height: auto;       /* keep them consistent */
+        object-fit: cover;   /* crops instead of stretching */
+        scroll-snap-align: start;
+        border-radius: 10px;
     }
 }
-
 @media (max-width: 600px) {
-    .landing--title {
-        font-size: 20vw;
-        text-align: center;
+    .landing--title { font-size: 20vw; text-align: center; }
+    .landing--image { width: 40vw; height: 40vw; }
+    .about-us, .mission-statement { flex-direction: column; }
+    .about-us--left, .mission-statement--left { width: 100%; height: 30%; }
+    .about-us--right, .mission-statement--right { width: 100%; height: 70%; }
+    .about-us--left--title, .mission-statement--left--text { font-size: 19vw; }
+    .about-us--right--text, .mission-statement--right--title { font-size: 5vw; }
+    .rotation-title { font-size: 6vw; }
+    .carousel-track img {
+        flex: 0 0 auto;      /* prevents shrinking */
+        width: 50vw;        /* adjust how wide each image is */
+        height: auto;       /* keep them consistent */
+        object-fit: cover;   /* crops instead of stretching */
+        scroll-snap-align: start;
+        border-radius: 10px;
     }
-    .landing--image {
-        width: 40vw;
-        height: 40vw;
-    }
-    .about-us {
-        display: flex;
-        flex-direction: column;
-    }
-    .about-us--left {
-        width: 100%;
-        height: 30%;
-    }
-    .about-us--right {
-        width: 100%;
-        height: 70%;
-    }
-    .about-us--left--title {
-        font-size: 19vw;
-    }
-    .about-us--right--text {
-        font-size: 5vw;
-    }
-    .mission-statement {
-        display: flex;
-        flex-direction: column;
-    }
-    .mission-statement--left {
-        width: 100%;
-        height: 30%;
-    }
-    .mission-statement--right {
-        width: 100%;
-        height: 70%;
-    }
-    .mission-statement--left--text {
-        font-size: 19vw;
-    }
-    .mission-statement--right--title {
-        font-size: 5vw;
+    .rotation-title {
+        font-size: 10vw;
     }
 }
